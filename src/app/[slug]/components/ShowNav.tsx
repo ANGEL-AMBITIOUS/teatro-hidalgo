@@ -3,14 +3,18 @@ import Link from 'next/link'
 
 export default function ShowNav() {
   return (
-    <nav style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-      background: 'rgba(12,26,31,0.85)', backdropFilter: 'blur(12px)',
-      borderBottom: '1px solid var(--border)',
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      padding: '0 2rem', height: '64px',
-    }}>
-      <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+    <nav
+      aria-label="Navegación principal"
+      className="show-nav"
+      style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+        background: 'rgba(12,26,31,0.85)', backdropFilter: 'blur(12px)',
+        borderBottom: '1px solid var(--border)',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 2rem', height: '64px',
+      }}
+    >
+      <Link aria-label="Ir al inicio de Teatro Hidalgo" href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
         <div style={{ width: 32, height: 32, background: 'var(--gold)', borderRadius: 2,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '0.75rem', fontWeight: 800, color: '#0c1a1f', fontFamily: 'Barlow Condensed' }}>
@@ -24,7 +28,7 @@ export default function ShowNav() {
           </span>
         </div>
       </Link>
-      <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+      <div className="show-nav-actions" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
         <Link href="/cartelera" style={{ color: 'var(--cream)', textDecoration: 'none',
           fontFamily: 'Barlow Condensed', fontWeight: 600, fontSize: '0.85rem', letterSpacing: '0.1em' }}>
           CARTELERA

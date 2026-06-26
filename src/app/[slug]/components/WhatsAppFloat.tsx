@@ -6,6 +6,8 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       title="Envíanos un WhatsApp"
+      aria-label="Abrir WhatsApp de Teatro Hidalgo"
+      className="whatsapp-float"
       style={{
         position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 100,
         width: '52px', height: '52px', borderRadius: '50%',

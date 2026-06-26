@@ -41,7 +41,7 @@ export default function InfoStrip({ show, funcion }: { show: Show; funcion?: Fun
   ]
   return (
     <section style={{ background: 'rgba(15,32,40,0.95)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
-      <div style={{
+      <div className="info-strip-grid" style={{
         maxWidth: '900px', margin: '0 auto', padding: '1.5rem 2rem',
         display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem',
       }}>

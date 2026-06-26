@@ -19,7 +19,7 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
     }}>
       <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '4rem 2rem 7rem' }}>
         {funcion && (
-          <div style={{
+          <div className="hero-badge" style={{
             display: 'inline-block', border: '1px solid var(--gold)',
             color: 'var(--gold)', padding: '0.35rem 1.25rem',
             fontFamily: 'Barlow Condensed', fontWeight: 600, fontSize: '0.8rem',
@@ -29,8 +29,8 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
           </div>
         )}
 
-        <h1 className="font-display" style={{
-          fontSize: 'clamp(2.8rem, 8vw, 6.5rem)', lineHeight: 0.9,
+        <h1 className="font-display hero-title" style={{
+          fontSize: 'clamp(2.4rem, 7.4vw, 6.5rem)', lineHeight: 0.9,
           color: '#fff', margin: '0 auto 1.5rem',
           whiteSpace: 'nowrap',
           textShadow: '0 0 60px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9)',
@@ -39,7 +39,7 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
         </h1>
 
         {show.subtitle && (
-          <p style={{
+          <p className="hero-subtitle" style={{
             color: 'rgba(240,234,216,0.85)', fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
             maxWidth: '560px', margin: '0 auto 0.75rem', lineHeight: 1.6,
             fontStyle: 'italic',
@@ -57,7 +57,7 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
           </p>
         )}
 
-        <Link href={`/${show.slug}/boletos`} className="btn-gold" style={{ fontSize: '1rem', padding: '1rem 2.5rem' }}>
+        <Link href={`/${show.slug}/boletos`} className="btn-gold" aria-label={`Comprar boletos para ${show.title}`} style={{ fontSize: '1rem', padding: '1rem 2.5rem' }}>
           COMPRAR BOLETOS →
         </Link>
       </div>

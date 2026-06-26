@@ -22,7 +22,7 @@ export default function StickyCtaBar({ slug, title, price }: { slug: string; tit
           </span>
         )}
       </div>
-      <Link href={`/${slug}/boletos`} className="btn-gold" style={{ whiteSpace: 'nowrap' }}>
+      <Link href={`/${slug}/boletos`} className="btn-gold" aria-label={`Comprar boletos para ${title}`} style={{ whiteSpace: 'nowrap' }}>
         COMPRAR BOLETOS →
       </Link>
     </div>

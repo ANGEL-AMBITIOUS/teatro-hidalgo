@@ -1,12 +1,16 @@
 'use client'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import type { Faq } from '@/lib/types'
 
 function FaqItem({ faq }: { faq: Faq }) {
   const [open, setOpen] = useState(false)
+  const answerId = useId()
   return (
     <div style={{ borderBottom: '1px solid var(--border)' }}>
       <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={answerId}
         onClick={() => setOpen(o => !o)}
         style={{
           width: '100%', background: 'none', border: 'none', cursor: 'pointer',
@@ -26,7 +30,7 @@ function FaqItem({ faq }: { faq: Faq }) {
         </span>
       </button>
       {open && (
-        <div style={{
+        <div id={answerId} style={{
           color: 'rgba(240,234,216,0.75)', fontSize: '0.95rem', lineHeight: 1.7,
           paddingBottom: '1.25rem',
         }}>

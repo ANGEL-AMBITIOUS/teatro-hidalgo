@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import type { Show } from '@/lib/types'
+import type { Faq, Funcion, PriceSection, Show } from '@/lib/types'
 import ShowNav from './components/ShowNav'
 import ShowHero from './components/ShowHero'
 import InfoStrip from './components/InfoStrip'
@@ -24,6 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
+type ShowQueryResult = Omit<Show, 'price_sections' | 'funciones' | 'faqs'> & {
+  price_sections?: PriceSection[] | null
+  funciones?: Funcion[] | null
+  faqs?: Faq[] | null
+}
+
 async function getShow(slug: string): Promise<Show | null> {
   const supabase = await createClient()
   const { data, error } = await supabase
@@ -41,14 +47,23 @@ async function getShow(slug: string): Promise<Show | null> {
     .eq('is_active', true)
     .single()
 
-  if (error || !data) return null
+  if (error) {
+    console.error('[show.lookup.failed]', { slug, code: error.code, message: error.message })
+    return null
+  }
+  if (!data) {
+    console.error('[show.lookup.empty]', { slug })
+    return null
+  }
+
+  const showData = data as ShowQueryResult
 
   return {
-    ...data,
-    price_sections: (data.price_sections ?? []).sort((a: any, b: any) => a.sort_order - b.sort_order),
-    funciones: (data.funciones ?? []).sort((a: any, b: any) => a.fecha.localeCompare(b.fecha)),
-    faqs: (data.faqs ?? []).sort((a: any, b: any) => a.sort_order - b.sort_order),
-  } as Show
+    ...showData,
+    price_sections: [...(showData.price_sections ?? [])].sort((a, b) => a.sort_order - b.sort_order),
+    funciones: [...(showData.funciones ?? [])].sort((a, b) => a.fecha.localeCompare(b.fecha)),
+    faqs: [...(showData.faqs ?? [])].sort((a, b) => a.sort_order - b.sort_order),
+  }
 }
 
 export default async function ShowPage({ params }: { params: Promise<{ slug: string }> }) {
