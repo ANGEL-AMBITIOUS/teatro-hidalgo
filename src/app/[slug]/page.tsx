@@ -11,6 +11,7 @@ import VenueSection from './components/VenueSection'
 import FaqAccordion from './components/FaqAccordion'
 import ShowFooter from './components/ShowFooter'
 import WhatsAppFloat from './components/WhatsAppFloat'
+import StickyCtaBar from './components/StickyCtaBar'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -69,6 +70,11 @@ export default async function ShowPage({ params }: { params: Promise<{ slug: str
       <FaqAccordion faqs={show.faqs} />
       <ShowFooter />
       <WhatsAppFloat />
+      <StickyCtaBar
+        slug={show.slug}
+        title={show.title}
+        price={show.price_sections[show.price_sections.length - 1]?.price_mxn}
+      />
     </div>
   )
 }
