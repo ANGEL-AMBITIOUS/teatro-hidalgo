@@ -14,20 +14,12 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
       display: 'flex', flexDirection: 'column', justifyContent: 'center',
       overflow: 'hidden',
       background: show.image_hero_url
-        ? `linear-gradient(to bottom, rgba(12,26,31,0.55) 0%, rgba(12,26,31,0.75) 60%, rgba(12,26,31,1) 100%), url(${show.image_hero_url}) center/cover no-repeat`
+        ? `linear-gradient(to bottom, rgba(12,26,31,0.35) 0%, rgba(12,26,31,0.55) 50%, rgba(12,26,31,0.95) 100%), url(${show.image_hero_url}) center/cover no-repeat`
         : 'linear-gradient(135deg, #0c1a1f 0%, #122530 50%, #0c1a1f 100%)',
     }}>
-      {/* Decorative overlay pattern */}
-      <div style={{
-        position: 'absolute', inset: 0, opacity: 0.04,
-        backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.3) 40px, rgba(255,255,255,0.3) 41px)',
-        pointerEvents: 'none',
-      }} />
-
-      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '4rem 2rem 6rem' }}>
-        {/* Date badge */}
+      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '4rem 2rem 7rem' }}>
         {funcion && (
-          <div style={{
+          <div className="hero-badge" style={{
             display: 'inline-block', border: '1px solid var(--gold)',
             color: 'var(--gold)', padding: '0.35rem 1.25rem',
             fontFamily: 'Barlow Condensed', fontWeight: 600, fontSize: '0.8rem',
@@ -37,38 +29,35 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
           </div>
         )}
 
-        {/* Main title */}
-        <h1 className="font-display" style={{
-          fontSize: 'clamp(2.5rem, 8vw, 6rem)', lineHeight: 0.95,
-          color: '#fff', marginBottom: '1.5rem', maxWidth: '1000px', margin: '0 auto 1.5rem',
+        <h1 className="font-display hero-title" style={{
+          fontSize: 'clamp(2.4rem, 7.4vw, 6.5rem)', lineHeight: 0.9,
+          color: '#fff', margin: '0 auto 1.5rem',
           whiteSpace: 'nowrap',
+          textShadow: '0 0 60px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9)',
         }}>
           {show.title}
         </h1>
 
-        {/* Subtitle */}
         {show.subtitle && (
-          <p style={{
-            color: 'rgba(240,234,216,0.75)', fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-            maxWidth: '580px', margin: '0 auto 0.75rem', lineHeight: 1.5,
+          <p className="hero-subtitle" style={{
+            color: 'rgba(240,234,216,0.85)', fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
+            maxWidth: '560px', margin: '0 auto 0.75rem', lineHeight: 1.6,
             fontStyle: 'italic',
           }}>
             {show.subtitle}
           </p>
         )}
 
-        {/* Artist */}
         {show.artist && (
           <p className="font-display" style={{
-            fontSize: 'clamp(1.5rem, 5vw, 3.5rem)', color: 'rgba(255,255,255,0.6)',
-            marginBottom: '2.5rem', letterSpacing: '0.1em',
+            fontSize: 'clamp(1.4rem, 4vw, 2.8rem)', color: 'rgba(255,255,255,0.7)',
+            marginBottom: '2.5rem', letterSpacing: '0.12em',
           }}>
             {show.artist}
           </p>
         )}
 
-        {/* CTA */}
-        <Link href={`/${show.slug}/boletos`} className="btn-gold" style={{ fontSize: '1rem', padding: '1rem 2.5rem' }}>
+        <Link href={`/${show.slug}/boletos`} className="btn-gold" aria-label={`Comprar boletos para ${show.title}`} style={{ fontSize: '1rem', padding: '1rem 2.5rem' }}>
           COMPRAR BOLETOS →
         </Link>
       </div>

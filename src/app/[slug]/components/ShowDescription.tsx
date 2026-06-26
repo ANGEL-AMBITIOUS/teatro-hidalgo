@@ -6,8 +6,8 @@ export default function ShowDescription({ show }: { show: Show }) {
   return (
     <section style={{ maxWidth: '720px', margin: '0 auto', padding: '4rem 2rem' }}>
       <h2 className="font-display" style={{
-        fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', color: '#fff',
-        marginBottom: '1.5rem', letterSpacing: '0.03em',
+        fontSize: 'clamp(1.45rem, 3vw, 2.15rem)', color: '#fff', lineHeight: 1,
+        marginBottom: '1.5rem', letterSpacing: '0.02em', maxWidth: '620px',
       }}>
         Una Puesta en Escena de Clase Mundial
       </h2>
@@ -19,7 +19,7 @@ export default function ShowDescription({ show }: { show: Show }) {
           <p key={i} style={{ marginBottom: '1rem' }}>{p}</p>
         ))}
       </div>
-      <Link href={`/${show.slug}/boletos`} className="btn-gold">
+      <Link href={`/${show.slug}/boletos`} className="btn-gold" aria-label={`Selecciona tus asientos para ${show.title}`}>
         SELECCIONA TUS ASIENTOS
       </Link>
     </section>

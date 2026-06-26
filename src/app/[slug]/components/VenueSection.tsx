@@ -1,6 +1,17 @@
 import type { Venue } from '@/lib/types'
 import Link from 'next/link'
 
+const IconMetro = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/><path d="M8 12l2 4 2-4 2 4 2-4"/>
+  </svg>
+)
+const IconParking = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h5a3 3 0 0 1 0 6H9"/>
+  </svg>
+)
+
 export default function VenueSection({ venue }: { venue?: Venue }) {
   if (!venue) return null
   return (
@@ -18,7 +29,7 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
       <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
         {venue.metro && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span>🚇</span>
+            <span style={{ color: 'var(--gold)' }}><IconMetro /></span>
             <div>
               <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
                 letterSpacing: '0.15em', color: 'var(--muted)' }}>METRO</div>
@@ -27,7 +38,7 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
           </div>
         )}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <span>🅿️</span>
+          <span style={{ color: 'var(--gold)' }}><IconParking /></span>
           <div>
             <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
               letterSpacing: '0.15em', color: 'var(--muted)' }}>ESTACIONAMIENTO</div>
@@ -38,9 +49,13 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
       <Link
         href={`https://maps.google.com/?q=${encodeURIComponent(venue.address ?? venue.name)}`}
         target="_blank"
+        rel="noopener noreferrer"
         className="btn-outline"
       >
-        📍 CÓMO LLEGAR
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        CÓMO LLEGAR
       </Link>
     </section>
   )
