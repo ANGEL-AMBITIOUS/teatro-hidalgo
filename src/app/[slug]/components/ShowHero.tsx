@@ -39,8 +39,9 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
 
         {/* Main title */}
         <h1 className="font-display" style={{
-          fontSize: 'clamp(3rem, 10vw, 7rem)', lineHeight: 0.95,
-          color: '#fff', marginBottom: '1.5rem', maxWidth: '900px', margin: '0 auto 1.5rem',
+          fontSize: 'clamp(2.5rem, 8vw, 6rem)', lineHeight: 0.95,
+          color: '#fff', marginBottom: '1.5rem', maxWidth: '1000px', margin: '0 auto 1.5rem',
+          whiteSpace: 'nowrap',
         }}>
           {show.title}
         </h1>
