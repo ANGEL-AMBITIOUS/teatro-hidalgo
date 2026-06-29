@@ -76,7 +76,7 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
       <BoletosNav slug={slug} title={show.title} />
 
       {/* Page header */}
-      <header style={{
+      <header className="show-hero" style={{
         paddingTop: '64px',
         background: show.image_hero_url
           ? `linear-gradient(to bottom, rgba(12,26,31,0.7) 0%, rgba(12,26,31,0.95) 100%), url(${show.image_hero_url}) center/cover no-repeat`

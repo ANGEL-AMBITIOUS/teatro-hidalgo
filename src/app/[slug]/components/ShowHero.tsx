@@ -9,7 +9,7 @@ function formatMonth(fecha: string) {
 
 export default function ShowHero({ show, funcion }: { show: Show; funcion?: Funcion }) {
   return (
-    <section style={{
+    <section className="show-hero" style={{
       position: 'relative', minHeight: '100vh', paddingTop: '64px',
       display: 'flex', flexDirection: 'column', justifyContent: 'center',
       overflow: 'hidden',

@@ -52,16 +52,29 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
         </div>
       </div>
 
-      {/* Google Maps embed */}
+      {/* Google Maps embed — placeholder behind shows if tiles are slow/blocked */}
       <div style={{
-        borderRadius: '4px', overflow: 'hidden',
+        position: 'relative', borderRadius: '4px', overflow: 'hidden',
         border: '1px solid var(--border)', marginBottom: '1.5rem',
+        minHeight: 220, background: 'var(--bg-card)',
       }}>
+        <div aria-hidden="true" style={{
+          position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+          color: 'var(--muted)', pointerEvents: 'none', textAlign: 'center', padding: '1rem',
+        }}>
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <span style={{ fontFamily: 'Barlow Condensed', fontWeight: 600, fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+            {venue.address ?? venue.name}
+          </span>
+        </div>
         <iframe
           src={`https://maps.google.com/maps?q=${mapsQ}&output=embed`}
           width="100%"
           height="220"
-          style={{ border: 0, display: 'block' }}
+          style={{ border: 0, display: 'block', position: 'relative' }}
           allowFullScreen
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
