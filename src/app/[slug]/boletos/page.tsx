@@ -21,7 +21,7 @@ async function getShow(slug: string): Promise<Show | null> {
       price_sections ( id, name, price_mxn, color_hex, sort_order ),
       funciones (
         id, fecha, hora, puertas, estado,
-        venue:venue_id ( id, name, address, metro, parking )
+        venue:venue_id ( id, name, address, metro, parking, svg_map )
       ),
       faqs ( id, question, answer, sort_order )
     `)
@@ -60,6 +60,16 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
 
   const nextFuncion = show.funciones.find(f => f.estado === 'on_sale') ?? show.funciones[0]
   const minPrice = show.price_sections[show.price_sections.length - 1]?.price_mxn
+
+  // Live seat availability
+  const supabase = await createClient()
+  const { data: seatRows } = nextFuncion
+    ? await supabase.from('seats').select('section_id').eq('funcion_id', nextFuncion.id).eq('status', 'available')
+    : { data: null }
+  const availMap = (seatRows ?? []).reduce((acc: Record<string, number>, s: { section_id: string }) => {
+    acc[s.section_id] = (acc[s.section_id] ?? 0) + 1
+    return acc
+  }, {})
 
   return (
     <div style={{ background: 'var(--bg-deep)', minHeight: '100vh' }}>
@@ -113,7 +123,7 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
 
         {/* Funcion info bar */}
         {nextFuncion && (
-          <div style={{
+          <div className="funcion-info-bar" style={{
             background: 'var(--bg-card)', border: '1px solid var(--border)',
             borderRadius: '4px', padding: '1.25rem 1.5rem',
             display: 'flex', flexWrap: 'wrap', gap: '1.5rem',
@@ -159,7 +169,7 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
                 {nextFuncion.venue?.name ?? 'Teatro Hidalgo'}
               </div>
             </div>
-            <div style={{ marginLeft: 'auto' }}>
+            <div className="funcion-badge" style={{ marginLeft: 'auto' }}>
               <span style={{
                 display: 'inline-block', background: 'rgba(34,197,94,0.12)', color: '#4ade80',
                 fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.7rem',
@@ -179,6 +189,7 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
             funcion={nextFuncion}
             showTitle={show.title}
             whatsappPhone={WHATSAPP}
+            availMap={availMap}
           />
         ) : (
           <div style={{

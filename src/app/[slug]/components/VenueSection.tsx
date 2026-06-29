@@ -14,6 +14,9 @@ const IconParking = () => (
 
 export default function VenueSection({ venue }: { venue?: Venue }) {
   if (!venue) return null
+
+  const mapsQ = encodeURIComponent(`Teatro Hidalgo Ignacio Retes, ${venue.address ?? 'Centro Histórico, CDMX'}`)
+
   return (
     <section style={{ maxWidth: '720px', margin: '0 auto', padding: '4rem 2rem' }}>
       <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.7rem',
@@ -26,7 +29,9 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
       <p style={{ color: 'rgba(240,234,216,0.7)', lineHeight: 1.7, marginBottom: '1.5rem' }}>
         {venue.address}
       </p>
-      <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
+
+      {/* Transit info */}
+      <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', marginBottom: '1.5rem' }}>
         {venue.metro && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span style={{ color: 'var(--gold)' }}><IconMetro /></span>
@@ -46,8 +51,44 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
           </div>
         </div>
       </div>
+
+      {/* Google Maps embed */}
+      <div style={{
+        borderRadius: '4px', overflow: 'hidden',
+        border: '1px solid var(--border)', marginBottom: '1.5rem',
+      }}>
+        <iframe
+          src={`https://maps.google.com/maps?q=${mapsQ}&output=embed`}
+          width="100%"
+          height="220"
+          style={{ border: 0, display: 'block' }}
+          allowFullScreen
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          title={`Ubicación de ${venue.name}`}
+        />
+      </div>
+
+      {/* Recinto SVG map */}
+      {venue.svg_map && (
+        <div style={{ marginBottom: '1.5rem' }}>
+          <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
+            letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: '0.75rem', textTransform: 'uppercase' }}>
+            Mapa del Recinto
+          </div>
+          <div
+            style={{
+              background: 'rgba(15,32,40,0.9)', borderRadius: '4px',
+              border: '1px solid var(--border)', padding: '1rem',
+              width: '100%',
+            }}
+            dangerouslySetInnerHTML={{ __html: venue.svg_map }}
+          />
+        </div>
+      )}
+
       <Link
-        href={`https://maps.google.com/?q=${encodeURIComponent(venue.address ?? venue.name)}`}
+        href={`https://maps.google.com/?q=${mapsQ}`}
         target="_blank"
         rel="noopener noreferrer"
         className="btn-outline"

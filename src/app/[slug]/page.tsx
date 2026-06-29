@@ -43,7 +43,7 @@ async function getShow(slug: string): Promise<Show | null> {
       price_sections ( id, name, price_mxn, color_hex, sort_order ),
       funciones (
         id, fecha, hora, puertas, estado,
-        venue:venue_id ( id, name, address, metro, parking )
+        venue:venue_id ( id, name, address, metro, parking, svg_map )
       ),
       faqs ( id, question, answer, sort_order )
     `)

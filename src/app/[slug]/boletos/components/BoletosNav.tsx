@@ -10,7 +10,7 @@ export default function BoletosNav({ slug, title }: { slug: string; title: strin
         background: 'rgba(12,26,31,0.85)', backdropFilter: 'blur(12px)',
         borderBottom: '1px solid var(--border)',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        padding: '0 2rem', height: '64px',
+        height: '64px',
       }}
     >
       <Link href="/" aria-label="Ir al inicio de Teatro Hidalgo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
