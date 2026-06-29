@@ -16,11 +16,15 @@ import StickyCtaBar from './components/StickyCtaBar'
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const supabase = await createClient()
-  const { data } = await supabase.from('shows').select('title, subtitle').eq('slug', slug).single()
+  const { data } = await supabase.from('shows').select('title, subtitle, image_hero_url').eq('slug', slug).single()
   if (!data) return { title: 'Teatro Hidalgo' }
+  const ogDesc = data.subtitle ?? 'Boletos oficiales — Teatro Hidalgo Ignacio Retes'
+  const ogImages = data.image_hero_url ? [{ url: data.image_hero_url, width: 1200, height: 630 }] : []
   return {
     title: `${data.title} — Teatro Hidalgo`,
-    description: data.subtitle ?? undefined,
+    description: ogDesc,
+    openGraph: { title: `${data.title} — Teatro Hidalgo`, description: ogDesc, images: ogImages },
+    twitter: { card: 'summary_large_image', title: `${data.title} — Teatro Hidalgo`, description: ogDesc, images: ogImages.map(i => i.url) },
   }
 }
 
@@ -39,7 +43,7 @@ async function getShow(slug: string): Promise<Show | null> {
       price_sections ( id, name, price_mxn, color_hex, sort_order ),
       funciones (
         id, fecha, hora, puertas, estado,
-        venue:venue_id ( id, name, address, metro, parking )
+        venue:venue_id ( id, name, address, metro, parking, svg_map )
       ),
       faqs ( id, question, answer, sort_order )
     `)

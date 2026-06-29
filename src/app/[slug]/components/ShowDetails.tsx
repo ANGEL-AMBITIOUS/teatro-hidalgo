@@ -15,7 +15,7 @@ export default function ShowDetails({ show }: { show: Show }) {
       background: 'rgba(15,32,40,0.6)', borderTop: '1px solid var(--border)',
       borderBottom: '1px solid var(--border)', padding: '2.5rem 2rem',
     }}>
-      <div style={{ maxWidth: '720px', margin: '0 auto', display: 'flex', gap: '3rem', flexWrap: 'wrap' }}>
+      <div style={{ maxWidth: '720px', margin: '0 auto', display: 'flex', gap: '1.5rem', rowGap: '1rem', flexWrap: 'wrap' }}>
         {items.map(({ label, value }) => (
           <div key={label}>
             <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.7rem',

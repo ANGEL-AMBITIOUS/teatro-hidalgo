@@ -2,7 +2,7 @@
 export default function WhatsAppFloat() {
   return (
     <a
-      href="https://wa.me/521XXXXXXXXXX"
+      href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5215512345678'}`}
       target="_blank"
       rel="noopener noreferrer"
       title="Envíanos un WhatsApp"

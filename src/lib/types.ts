@@ -6,6 +6,7 @@ export interface Venue {
   address: string | null
   metro: string | null
   parking: string | null
+  svg_map: string | null
 }
 
 export interface PriceSection {

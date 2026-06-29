@@ -16,10 +16,14 @@ export default function ShowFooter() {
           © {new Date().getFullYear()} TEATRO HIDALGO IGNACIO RETES · TODOS LOS DERECHOS RESERVADOS
         </div>
         <div style={{ display: 'flex', gap: '2rem' }}>
-          {['Ver shows', 'Política de privacidad', 'Términos y condiciones'].map(t => (
-            <Link key={t} href="#" style={{ color: 'var(--muted)', textDecoration: 'none',
+          {[
+            { label: 'Ver shows', href: '/' },
+            { label: 'Política de privacidad', href: '#' },
+            { label: 'Términos y condiciones', href: '#' },
+          ].map(({ label, href }) => (
+            <Link key={label} href={href} style={{ color: 'var(--muted)', textDecoration: 'none',
               fontFamily: 'Barlow Condensed', fontSize: '0.8rem', letterSpacing: '0.08em' }}>
-              {t}
+              {label}
             </Link>
           ))}
         </div>

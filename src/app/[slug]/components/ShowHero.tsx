@@ -9,7 +9,7 @@ function formatMonth(fecha: string) {
 
 export default function ShowHero({ show, funcion }: { show: Show; funcion?: Funcion }) {
   return (
-    <section style={{
+    <section className="show-hero" style={{
       position: 'relative', minHeight: '100vh', paddingTop: '64px',
       display: 'flex', flexDirection: 'column', justifyContent: 'center',
       overflow: 'hidden',
@@ -29,10 +29,12 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
           </div>
         )}
 
-        <h1 className="font-display hero-title" style={{
+        <h1 className="hero-title" style={{
+          fontFamily: 'var(--font-bodoni, Georgia, serif)',
+          fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.02em',
           fontSize: 'clamp(2.4rem, 7.4vw, 6.5rem)', lineHeight: 0.9,
           color: '#fff', margin: '0 auto 1.5rem',
-          whiteSpace: 'nowrap',
+          wordBreak: 'break-word',
           textShadow: '0 0 60px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.9)',
         }}>
           {show.title}

@@ -142,9 +142,15 @@ a:hover { opacity: 0.85; }
 /* Mobile responsive */
 @media (max-width: 640px) {
   html, body { overflow-x: hidden; }
+  /* hero img is 16:9 with the painted title on the LEFT half; cover/center crops
+     it into illegible fragments on a portrait viewport. Shift to the actor (right)
+     so the bg reads as atmosphere and the clean Bodoni h1 carries the title. */
+  .show-hero { background-position: 74% center !important; }
   .show-nav { padding: 0 1rem !important; }
   .show-nav-actions { display: none !important; }
-  .hero-title { font-size: clamp(1.3rem, 6vw, 2.15rem) !important; letter-spacing: -0.015em !important; max-width: 100% !important; }
+  .hero-title { font-size: clamp(1.3rem, 6vw, 2.15rem) !important; letter-spacing: -0.015em !important; max-width: 100% !important; white-space: normal !important; word-break: break-word !important; }
+  .funcion-info-bar { flex-direction: column !important; align-items: flex-start !important; gap: 0.75rem !important; }
+  .funcion-badge { margin-left: 0 !important; }
   .hero-badge { padding-left: 0.65rem !important; padding-right: 0.65rem !important; font-size: 0.66rem !important; letter-spacing: 0.07em !important; max-width: 100% !important; }
   .hero-subtitle { max-width: 100% !important; font-size: 0.94rem !important; line-height: 1.55 !important; }
   .info-strip-grid { grid-template-columns: repeat(2, 1fr) !important; }
