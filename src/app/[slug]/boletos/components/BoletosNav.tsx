@@ -1,10 +1,9 @@
-'use client'
 import Link from 'next/link'
 
-export default function ShowNav() {
+export default function BoletosNav({ slug, title }: { slug: string; title: string }) {
   return (
     <nav
-      aria-label="Navegación principal"
+      aria-label="Navegación boletos"
       className="show-nav"
       style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
@@ -14,7 +13,7 @@ export default function ShowNav() {
         padding: '0 2rem', height: '64px',
       }}
     >
-      <Link aria-label="Ir al inicio de Teatro Hidalgo" href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+      <Link href="/" aria-label="Ir al inicio de Teatro Hidalgo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
         <div style={{ width: 32, height: 32, background: 'var(--gold)', borderRadius: 2,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '0.75rem', fontWeight: 800, color: '#0c1a1f', fontFamily: 'Barlow Condensed' }}>
@@ -28,11 +27,14 @@ export default function ShowNav() {
           </span>
         </div>
       </Link>
-      <div className="show-nav-actions" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-        <Link href="/" className="btn-gold" style={{ padding: '0.5rem 1.25rem', fontSize: '0.8rem' }}>
-          VER CARTELERA
-        </Link>
-      </div>
+      <Link
+        href={`/${slug}`}
+        className="btn-outline"
+        style={{ padding: '0.5rem 1.25rem', fontSize: '0.8rem' }}
+        aria-label={`Volver a ${title}`}
+      >
+        ← VOLVER AL SHOW
+      </Link>
     </nav>
   )
 }
