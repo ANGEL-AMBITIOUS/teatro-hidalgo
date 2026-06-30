@@ -187,6 +187,8 @@ svg text { font-family: var(--font-bebas), sans-serif !important; }
 /* Mobile responsive */
 @media (max-width: 640px) {
   html, body { overflow-x: hidden; }
+  /* 3-panel hero → single panel on portrait mobile */
+  .hero-panel:not(:first-child) { display: none; }
   /* hero img is 16:9 with the painted title on the LEFT half; cover/center crops
      it into illegible fragments on a portrait viewport. Shift to the actor (right)
      so the bg reads as atmosphere and the clean Bebas h1 carries the title. */

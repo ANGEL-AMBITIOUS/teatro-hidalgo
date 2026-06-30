@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import ShowNav from '@/app/[slug]/components/ShowNav'
 import ShowFooter from '@/app/[slug]/components/ShowFooter'
@@ -5,6 +6,26 @@ import ShowCard from '@/components/ShowCard'
 import type { Show } from '@/lib/types'
 
 export const revalidate = 60
+
+export async function generateMetadata(): Promise<Metadata> {
+  const supabase = await createClient()
+  const { data } = await supabase
+    .from('shows')
+    .select('title, image_hero_url')
+    .eq('is_active', true)
+    .order('created_at', { ascending: true })
+    .limit(1)
+    .single()
+  return {
+    title: 'Cartelera',
+    description: 'Descubre los espectáculos en cartelera en el Teatro Hidalgo Ignacio Retes · Compra tus boletos en línea · Centro Histórico, CDMX',
+    openGraph: {
+      title: 'Teatro Hidalgo Ignacio Retes — Cartelera',
+      description: 'Descubre los espectáculos en cartelera · Compra tus boletos en línea',
+      ...(data?.image_hero_url ? { images: [{ url: data.image_hero_url, width: 1200, height: 630, alt: `${data.title} — Teatro Hidalgo en cartelera` }] } : {}),
+    },
+  }
+}
 
 const SOBRE_TEATRO = `El Teatro Hidalgo Ignacio Retes es uno de los recintos escénicos más emblemáticos de la Ciudad de México. Con décadas de trayectoria, ha sido testigo de las más importantes producciones del teatro mexicano, formando generaciones de artistas y públicos apasionados por las artes escénicas.
 
@@ -48,16 +69,16 @@ export default async function HomePage() {
           style={{ position: 'relative', minHeight: '85vh', overflow: 'hidden' }}
         >
           {/* Show image panels — split when 2+, full when 1, dark fallback */}
-          <div aria-hidden="true" style={{ position: 'absolute', inset: 0, display: 'flex' }}>
+          <div aria-hidden="true" className="hero-panels" style={{ position: 'absolute', inset: 0, display: 'flex' }}>
             {heroShows.length > 0 ? heroShows.map(show => (
-              <div key={show.id} style={{
+              <div key={show.id} className="hero-panel" style={{
                 flex: 1,
                 background: show.image_hero_url
                   ? `url(${show.image_hero_url}) center/cover no-repeat`
                   : 'linear-gradient(135deg, #0f2028, #0c1a1f)',
               }} />
             )) : (
-              <div style={{ flex: 1, background: 'linear-gradient(135deg, #0a1a20, #0c1a1f)' }} />
+              <div className="hero-panel" style={{ flex: 1, background: 'linear-gradient(135deg, #0a1a20, #0c1a1f)' }} />
             )}
           </div>
 

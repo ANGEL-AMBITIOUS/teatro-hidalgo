@@ -7,8 +7,20 @@ const hanken = Hanken_Grotesk({ subsets: ['latin'], weight: ['400', '600', '700'
 const bebas = Bebas_Neue({ subsets: ['latin'], weight: '400', variable: '--font-bebas' })
 
 export const metadata: Metadata = {
-  title: 'Teatro Hidalgo Ignacio Retes',
-  description: 'Plataforma oficial de boletos — Teatro Hidalgo',
+  metadataBase: new URL('https://teatro-hidalgo-work.vercel.app'),
+  title: {
+    template: '%s — Teatro Hidalgo',
+    default: 'Teatro Hidalgo Ignacio Retes',
+  },
+  description: 'Boletos oficiales para los espectáculos del Teatro Hidalgo Ignacio Retes · Centro Histórico, CDMX',
+  openGraph: {
+    siteName: 'Teatro Hidalgo Ignacio Retes',
+    type: 'website',
+    locale: 'es_MX',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
