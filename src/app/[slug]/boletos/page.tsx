@@ -201,7 +201,14 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
             }}>
               SELECCIONA TUS ASIENTOS
             </h2>
-            <SeatMap seats={seats} sections={show.price_sections} />
+            <SeatMap
+              seats={seats}
+              sections={show.price_sections}
+              showTitle={show.title}
+              funcionDate={nextFuncion ? formatDateLong(nextFuncion.fecha) : ''}
+              funcionHour={nextFuncion ? nextFuncion.hora.slice(0, 5) : ''}
+              whatsapp={WHATSAPP}
+            />
           </section>
         )}
 

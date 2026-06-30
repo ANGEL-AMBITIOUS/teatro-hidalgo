@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import type { PriceSection, Seat } from '@/lib/types'
+import { buildCheckoutUrl } from '@/lib/checkout'
 
 const ROWS = ['A','B','C','D','E','F','G','H','I','J'] as const
 const SECTION_FIRST: Record<string, true> = { A: true, C: true, E: true, H: true }
@@ -34,7 +35,14 @@ function SeatBtn({ seat, color, selected, onToggle }: {
   )
 }
 
-export default function SeatMap({ seats, sections }: { seats: Seat[]; sections: PriceSection[] }) {
+export default function SeatMap({ seats, sections, showTitle, funcionDate, funcionHour, whatsapp }: {
+  seats: Seat[]
+  sections: PriceSection[]
+  showTitle: string
+  funcionDate: string
+  funcionHour: string
+  whatsapp: string
+}) {
   const [selected, setSelected] = useState(new Set<string>())
 
   const sectionMap = Object.fromEntries(sections.map(s => [s.id, s]))
@@ -184,6 +192,21 @@ export default function SeatMap({ seats, sections }: { seats: Seat[]; sections: 
           <button
             className="btn-gold"
             style={{ fontSize: '0.75rem', padding: '0.4rem 1.1rem', minHeight: 'auto' }}
+            onClick={() => {
+              const url = buildCheckoutUrl({
+                showTitle,
+                funcionDate,
+                funcionHour,
+                seats: selectedList.map(s => ({
+                  row: s.row_label,
+                  number: s.seat_number,
+                  section: sectionMap[s.section_id]?.name ?? '',
+                })),
+                totalMxn: totalPrice,
+                whatsappNumber: whatsapp,
+              })
+              window.open(url, '_blank', 'noopener,noreferrer')
+            }}
           >
             CONTINUAR →
           </button>
