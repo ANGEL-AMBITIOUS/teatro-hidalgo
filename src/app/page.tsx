@@ -34,8 +34,8 @@ export default async function HomePage() {
     ? Math.min(...allFunciones.map(f => new Date(f.fecha + 'T12:00:00').getFullYear()))
     : new Date().getFullYear()
 
-  // Up to 2 hero panels from active shows
-  const heroShows = shows.slice(0, 2)
+  // Up to 3 hero panels from active shows (all with images)
+  const heroShows = shows.slice(0, 3)
 
   return (
     <>
@@ -64,8 +64,11 @@ export default async function HomePage() {
           {/* Unified dark overlay so brand text reads */}
           <div aria-hidden="true" style={{
             position: 'absolute', inset: 0,
-            background: 'linear-gradient(to bottom, rgba(12,26,31,0.45) 0%, rgba(12,26,31,0.62) 50%, rgba(12,26,31,0.88) 100%)',
+            background: 'linear-gradient(to bottom, rgba(12,26,31,0.38) 0%, rgba(12,26,31,0.58) 50%, rgba(12,26,31,0.92) 100%)',
           }} />
+
+          {/* Cinematic grain */}
+          <div aria-hidden="true" className="grain-overlay" />
 
           {/* Brand overlay */}
           <div style={{
@@ -112,9 +115,8 @@ export default async function HomePage() {
         </section>
 
         {/* ───── INFO STRIP ───── */}
-        <div style={{
+        <div className="info-strip-accent" style={{
           background: '#080f12',
-          borderTop: '1px solid var(--border)',
           borderBottom: '1px solid var(--border)',
         }}>
           <div style={{
