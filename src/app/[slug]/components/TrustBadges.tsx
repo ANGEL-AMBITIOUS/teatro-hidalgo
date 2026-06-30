@@ -19,9 +19,9 @@ const IconQr = () => (
 
 export default function TrustBadges() {
   const badges = [
-    { Icon: IconLock,   label: 'SECURE CHECKOUT' },
-    { Icon: IconShield, label: 'OFFICIAL TICKETS' },
-    { Icon: IconQr,     label: 'DIGITAL DELIVERY' },
+    { Icon: IconLock,   label: 'PAGO SEGURO' },
+    { Icon: IconShield, label: 'BOLETOS OFICIALES' },
+    { Icon: IconQr,     label: 'ENTREGA DIGITAL' },
   ]
   return (
     <section style={{ padding: '2.5rem 2rem', maxWidth: '600px', margin: '0 auto' }}>
@@ -29,7 +29,7 @@ export default function TrustBadges() {
         {badges.map(({ Icon, label }) => (
           <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span style={{ color: 'var(--muted)' }}><Icon /></span>
-            <span style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.75rem',
+            <span style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.75rem',
               letterSpacing: '0.15em', color: 'var(--muted)' }}>
               {label}
             </span>

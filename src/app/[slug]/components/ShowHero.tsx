@@ -22,7 +22,7 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
           <div className="hero-badge" style={{
             display: 'inline-block', border: '1px solid var(--gold)',
             color: 'var(--gold)', padding: '0.35rem 1.25rem',
-            fontFamily: 'Barlow Condensed', fontWeight: 600, fontSize: '0.8rem',
+            fontFamily: 'var(--font-bebas)', fontWeight: 600, fontSize: '0.8rem',
             letterSpacing: '0.2em', marginBottom: '2rem', borderRadius: '1px',
           }}>
             {formatMonth(funcion.fecha)} &bull; {funcion.venue?.name?.toUpperCase() ?? 'TEATRO HIDALGO'}
@@ -30,7 +30,7 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
         )}
 
         <h1 className="hero-title" style={{
-          fontFamily: 'var(--font-bodoni, Georgia, serif)',
+          fontFamily: 'var(--font-bebas, "Bebas Neue", Impact, sans-serif)',
           fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.02em',
           fontSize: 'clamp(2.4rem, 7.4vw, 6.5rem)', lineHeight: 0.9,
           color: '#fff', margin: '0 auto 1.5rem',

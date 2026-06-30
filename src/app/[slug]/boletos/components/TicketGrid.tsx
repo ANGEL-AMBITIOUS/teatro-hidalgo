@@ -37,7 +37,7 @@ function TicketCard({ section, funcion, showTitle, whatsappPhone, available }: {
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
         <span style={{ width: 10, height: 10, borderRadius: '50%', background: accent, flexShrink: 0 }} aria-hidden="true" />
         <span style={{
-          fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.75rem',
+          fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.75rem',
           letterSpacing: '0.18em', color: 'var(--muted)', textTransform: 'uppercase',
         }}>
           {section.name}
@@ -47,14 +47,14 @@ function TicketCard({ section, funcion, showTitle, whatsappPhone, available }: {
       {/* Focal price */}
       <div>
         <div style={{
-          fontFamily: 'Barlow Condensed', fontWeight: 900,
+          fontFamily: 'var(--font-bebas)', fontWeight: 900,
           fontSize: 'clamp(1.9rem, 4vw, 2.5rem)', color: 'var(--cream)',
           fontVariantNumeric: 'tabular-nums', letterSpacing: '-0.01em', lineHeight: 1,
         }}>
           ${section.price_mxn.toLocaleString('es-MX')}
         </div>
         <div style={{
-          fontFamily: 'Barlow Condensed', fontWeight: 500,
+          fontFamily: 'var(--font-bebas)', fontWeight: 500,
           fontSize: '0.7rem', color: 'var(--muted)', letterSpacing: '0.1em', marginTop: '0.2rem',
         }}>
           MXN POR BOLETO
@@ -64,7 +64,7 @@ function TicketCard({ section, funcion, showTitle, whatsappPhone, available }: {
       {/* Seat availability */}
       {available !== undefined && (
         <div style={{
-          fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.72rem',
+          fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.72rem',
           letterSpacing: '0.1em', textTransform: 'uppercase',
           color: isSoldOut ? '#f87171' : isLow ? '#fbbf24' : '#4ade80',
         }}>
@@ -82,7 +82,7 @@ function TicketCard({ section, funcion, showTitle, whatsappPhone, available }: {
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
             background: accent, color: '#0c1a1f',
-            fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.8rem',
+            fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.8rem',
             letterSpacing: '0.1em', textTransform: 'uppercase',
             padding: '0.65rem 1rem', borderRadius: '2px',
             textDecoration: 'none', minHeight: 44,
@@ -111,7 +111,7 @@ export default function TicketGrid({ sections, funcion, showTitle, whatsappPhone
   return (
     <section aria-label="Categorías de boletos">
       <h2 style={{
-        fontFamily: 'Barlow Condensed', fontWeight: 800,
+        fontFamily: 'var(--font-bebas)', fontWeight: 800,
         fontSize: 'clamp(1.2rem, 3vw, 1.6rem)',
         color: 'var(--cream)', letterSpacing: '0.1em', textTransform: 'uppercase',
         marginBottom: '1.5rem',

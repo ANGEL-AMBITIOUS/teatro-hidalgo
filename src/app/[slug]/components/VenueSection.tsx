@@ -19,7 +19,7 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
 
   return (
     <section style={{ maxWidth: '720px', margin: '0 auto', padding: '4rem 2rem' }}>
-      <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.7rem',
+      <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.7rem',
         letterSpacing: '0.2em', color: 'var(--gold)', marginBottom: '0.75rem' }}>
         EL ESCENARIO
       </div>
@@ -36,7 +36,7 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span style={{ color: 'var(--gold)' }}><IconMetro /></span>
             <div>
-              <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
+              <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.65rem',
                 letterSpacing: '0.15em', color: 'var(--muted)' }}>METRO</div>
               <div style={{ color: 'var(--cream)', fontSize: '0.9rem' }}>{venue.metro}</div>
             </div>
@@ -45,7 +45,7 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <span style={{ color: 'var(--gold)' }}><IconParking /></span>
           <div>
-            <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
+            <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.65rem',
               letterSpacing: '0.15em', color: 'var(--muted)' }}>ESTACIONAMIENTO</div>
             <div style={{ color: 'var(--cream)', fontSize: '0.9rem' }}>{venue.parking ?? 'No disponible'}</div>
           </div>
@@ -66,7 +66,7 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
           <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
           </svg>
-          <span style={{ fontFamily: 'Barlow Condensed', fontWeight: 600, fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          <span style={{ fontFamily: 'var(--font-bebas)', fontWeight: 600, fontSize: '0.7rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             {venue.address ?? venue.name}
           </span>
         </div>
@@ -85,7 +85,7 @@ export default function VenueSection({ venue }: { venue?: Venue }) {
       {/* Recinto SVG map */}
       {venue.svg_map && (
         <div style={{ marginBottom: '1.5rem' }}>
-          <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
+          <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.65rem',
             letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: '0.75rem', textTransform: 'uppercase' }}>
             Mapa del Recinto
           </div>

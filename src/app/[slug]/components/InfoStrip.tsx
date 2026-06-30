@@ -50,11 +50,11 @@ export default function InfoStrip({ show, funcion }: { show: Show; funcion?: Fun
             <div style={{ color: 'var(--gold)', marginBottom: '0.3rem', display: 'flex', justifyContent: 'center' }}>
               <Icon />
             </div>
-            <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
+            <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.65rem',
               letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: '0.2rem' }}>
               {label}
             </div>
-            <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '1rem', color: 'var(--cream)', letterSpacing: '0.05em' }}>
+            <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '1rem', color: 'var(--cream)', letterSpacing: '0.05em' }}>
               {value}
             </div>
           </div>

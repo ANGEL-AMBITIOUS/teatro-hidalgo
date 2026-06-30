@@ -16,10 +16,10 @@ export default function BoletosNav({ slug, title }: { slug: string; title: strin
       <Link href="/" aria-label="Ir al inicio de Teatro Hidalgo" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
         <div style={{ width: 32, height: 32, background: 'var(--gold)', borderRadius: 2,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '0.75rem', fontWeight: 800, color: '#0c1a1f', fontFamily: 'Barlow Condensed' }}>
+          fontSize: '0.75rem', fontWeight: 800, color: '#0c1a1f', fontFamily: 'var(--font-bebas)' }}>
           TH
         </div>
-        <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '1rem',
+        <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '1rem',
           color: 'var(--cream)', letterSpacing: '0.05em', lineHeight: 1.1 }}>
           TEATRO<br />
           <span style={{ fontSize: '0.65rem', fontWeight: 400, letterSpacing: '0.15em', color: 'var(--muted)' }}>

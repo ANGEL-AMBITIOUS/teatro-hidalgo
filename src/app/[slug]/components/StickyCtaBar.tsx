@@ -12,7 +12,7 @@ export default function StickyCtaBar({ slug, title, price }: { slug: string; tit
   return (
     <div className={`sticky-cta${visible ? ' visible' : ''}`} role="complementary" aria-label="Comprar boletos">
       <div className="show-title-small" style={{
-        fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '1rem',
+        fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '1rem',
         color: 'var(--cream)', letterSpacing: '0.05em', textTransform: 'uppercase',
       }}>
         {title}

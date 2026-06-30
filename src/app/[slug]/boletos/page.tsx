@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
-import type { Faq, Funcion, PriceSection, Show } from '@/lib/types'
+import type { Faq, Funcion, PriceSection, Seat, Show } from '@/lib/types'
 import BoletosNav from './components/BoletosNav'
+import SeatMap from './components/SeatMap'
 import TicketGrid from './components/TicketGrid'
 
 const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '5215512345678'
@@ -61,13 +62,21 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
   const nextFuncion = show.funciones.find(f => f.estado === 'on_sale') ?? show.funciones[0]
   const minPrice = show.price_sections[show.price_sections.length - 1]?.price_mxn
 
-  // Live seat availability
+  // All seats for this function (all statuses for interactive map)
   const supabase = await createClient()
   const { data: seatRows } = nextFuncion
-    ? await supabase.from('seats').select('section_id').eq('funcion_id', nextFuncion.id).eq('status', 'available')
+    ? await supabase
+        .from('seats')
+        .select('id, section_id, row_label, seat_number, status')
+        .eq('funcion_id', nextFuncion.id)
+        .order('row_label')
+        .order('seat_number')
     : { data: null }
-  const availMap = (seatRows ?? []).reduce((acc: Record<string, number>, s: { section_id: string }) => {
-    acc[s.section_id] = (acc[s.section_id] ?? 0) + 1
+  const seats = (seatRows ?? []) as Seat[]
+
+  // availMap still used by TicketGrid below
+  const availMap = seats.reduce((acc: Record<string, number>, s) => {
+    if (s.status === 'available') acc[s.section_id] = (acc[s.section_id] ?? 0) + 1
     return acc
   }, {})
 
@@ -87,13 +96,13 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
           <div style={{
             display: 'inline-block', border: '1px solid var(--gold)',
             color: 'var(--gold)', padding: '0.3rem 1rem',
-            fontFamily: 'Barlow Condensed', fontWeight: 600, fontSize: '0.7rem',
+            fontFamily: 'var(--font-bebas)', fontWeight: 600, fontSize: '0.7rem',
             letterSpacing: '0.2em', marginBottom: '1rem', borderRadius: '1px',
           }}>
             BOLETOS OFICIALES
           </div>
           <h1 style={{
-            fontFamily: 'Barlow Condensed', fontWeight: 900,
+            fontFamily: 'var(--font-bebas)', fontWeight: 900,
             fontSize: 'clamp(1.8rem, 5vw, 3rem)', color: '#fff',
             textTransform: 'uppercase', letterSpacing: '0.03em', lineHeight: 0.95,
             marginBottom: '0.5rem',
@@ -107,7 +116,7 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
           )}
           {minPrice && (
             <p style={{
-              fontFamily: 'Barlow Condensed', fontWeight: 600, fontSize: '0.9rem',
+              fontFamily: 'var(--font-bebas)', fontWeight: 600, fontSize: '0.9rem',
               color: 'var(--muted)', letterSpacing: '0.08em',
             }}>
               DESDE{' '}
@@ -130,41 +139,41 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
             alignItems: 'center', marginBottom: '2.5rem',
           }}>
             <div>
-              <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
+              <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.65rem',
                 letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: '0.2rem', textTransform: 'uppercase' }}>
                 Fecha
               </div>
-              <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '1rem',
+              <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '1rem',
                 color: 'var(--cream)', letterSpacing: '0.04em', textTransform: 'capitalize' }}>
                 {formatDateLong(nextFuncion.fecha)}
               </div>
             </div>
             <div>
-              <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
+              <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.65rem',
                 letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: '0.2rem', textTransform: 'uppercase' }}>
                 Función
               </div>
-              <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '1rem',
+              <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '1rem',
                 color: 'var(--cream)', fontVariantNumeric: 'tabular-nums' }}>
                 {nextFuncion.hora.slice(0, 5)} hrs
               </div>
             </div>
             <div>
-              <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
+              <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.65rem',
                 letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: '0.2rem', textTransform: 'uppercase' }}>
                 Puertas
               </div>
-              <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '1rem',
+              <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '1rem',
                 color: 'var(--cream)', fontVariantNumeric: 'tabular-nums' }}>
                 {nextFuncion.puertas.slice(0, 5)} hrs
               </div>
             </div>
             <div>
-              <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.65rem',
+              <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.65rem',
                 letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: '0.2rem', textTransform: 'uppercase' }}>
                 Lugar
               </div>
-              <div style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '1rem',
+              <div style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '1rem',
                 color: 'var(--cream)' }}>
                 {nextFuncion.venue?.name ?? 'Teatro Hidalgo'}
               </div>
@@ -172,7 +181,7 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
             <div className="funcion-badge" style={{ marginLeft: 'auto' }}>
               <span style={{
                 display: 'inline-block', background: 'rgba(34,197,94,0.12)', color: '#4ade80',
-                fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.7rem',
+                fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.7rem',
                 letterSpacing: '0.15em', padding: '0.3rem 0.75rem', borderRadius: '2px',
                 textTransform: 'uppercase',
               }}>
@@ -180,6 +189,20 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
               </span>
             </div>
           </div>
+        )}
+
+        {/* Interactive seat map */}
+        {seats.length > 0 && (
+          <section style={{ marginBottom: '3rem' }}>
+            <h2 style={{
+              fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '1rem',
+              color: 'var(--cream)', letterSpacing: '0.15em', textTransform: 'uppercase',
+              marginBottom: '1.5rem',
+            }}>
+              SELECCIONA TUS ASIENTOS
+            </h2>
+            <SeatMap seats={seats} sections={show.price_sections} />
+          </section>
         )}
 
         {/* Ticket categories */}
@@ -194,7 +217,7 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
         ) : (
           <div style={{
             textAlign: 'center', padding: '4rem 2rem',
-            color: 'var(--muted)', fontFamily: 'Barlow Condensed', letterSpacing: '0.1em',
+            color: 'var(--muted)', fontFamily: 'var(--font-bebas)', letterSpacing: '0.1em',
           }}>
             Categorías no disponibles. Contáctanos vía WhatsApp.
           </div>
@@ -213,7 +236,7 @@ export default async function BoletosPage({ params }: { params: Promise<{ slug: 
           ].map(({ icon, label }) => (
             <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ color: 'var(--gold)', fontSize: '1rem' }} aria-hidden="true">{icon}</span>
-              <span style={{ fontFamily: 'Barlow Condensed', fontWeight: 700, fontSize: '0.7rem',
+              <span style={{ fontFamily: 'var(--font-bebas)', fontWeight: 700, fontSize: '0.7rem',
                 letterSpacing: '0.15em', color: 'var(--muted)', textTransform: 'uppercase' }}>
                 {label}
               </span>

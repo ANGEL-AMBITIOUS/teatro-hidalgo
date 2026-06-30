@@ -18,11 +18,11 @@ function FaqItem({ faq }: { faq: Faq }) {
           padding: '1.25rem 0', textAlign: 'left', color: 'var(--cream)',
         }}
       >
-        <span style={{ fontFamily: 'Barlow Condensed', fontWeight: 600, fontSize: '1.05rem' }}>
+        <span style={{ fontFamily: 'var(--font-bebas)', fontWeight: 600, fontSize: '1.05rem' }}>
           {faq.question}
         </span>
         <span style={{
-          fontFamily: 'Barlow Condensed', fontSize: '1.4rem', color: 'var(--gold)',
+          fontFamily: 'var(--font-bebas)', fontSize: '1.4rem', color: 'var(--gold)',
           transform: open ? 'rotate(45deg)' : 'rotate(0)', transition: 'transform 0.2s',
           flexShrink: 0, marginLeft: '1rem',
         }}>

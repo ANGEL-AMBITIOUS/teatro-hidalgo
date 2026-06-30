@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter, Bodoni_Moda } from 'next/font/google'
+import { Hanken_Grotesk, Bebas_Neue } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const bodoni = Bodoni_Moda({ subsets: ['latin'], weight: ['400', '700'], variable: '--font-bodoni' })
+// Roobert (body vivo) es self-hosted en WP — sin licencia libre. Hanken Grotesk es el humanist sans más cercano en Google Fonts.
+const hanken = Hanken_Grotesk({ subsets: ['latin'], weight: ['400', '600', '700'], variable: '--font-hanken' })
+const bebas = Bebas_Neue({ subsets: ['latin'], weight: '400', variable: '--font-bebas' })
 
 export const metadata: Metadata = {
   title: 'Teatro Hidalgo Ignacio Retes',
@@ -13,15 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={`${inter.variable} ${bodoni.variable}`}>
+      <body className={`${hanken.variable} ${bebas.variable}`}>
         {children}
       </body>
     </html>
