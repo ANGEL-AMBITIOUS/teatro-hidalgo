@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Show } from '@/lib/types'
 
 function nextFuncion(show: Show) {
@@ -27,19 +28,37 @@ export default function ShowCard({ show }: { show: Show }) {
     <Link href={`/${show.slug}`} style={{ textDecoration: 'none', display: 'block' }} aria-label={`Ver ${show.title}`}>
       <article className="show-card" style={{
         position: 'relative', borderRadius: 4, overflow: 'hidden',
-        background: show.image_hero_url
-          ? `linear-gradient(to bottom, rgba(12,26,31,0.1) 0%, rgba(12,26,31,0.75) 55%, rgba(12,26,31,0.98) 100%), url(${show.image_hero_url}) center/cover no-repeat`
-          : 'linear-gradient(135deg, #0f2028 0%, #0c1a1f 100%)',
+        background: show.image_hero_url ? undefined : 'linear-gradient(135deg, #0f2028 0%, #0c1a1f 100%)',
         minHeight: 380,
         display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
         padding: '1.5rem',
         cursor: 'pointer',
         border: '1px solid var(--border)',
       }}>
+        {/* Poster via next/image — WebP + Vercel CDN + lazy load */}
+        {show.image_hero_url && (
+          <Image
+            src={show.image_hero_url}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            style={{ objectFit: 'cover', objectPosition: 'center top' }}
+            priority={false}
+          />
+        )}
+
+        {/* Gradient overlay — scrim so text reads on any poster */}
+        {show.image_hero_url && (
+          <div aria-hidden="true" style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(to bottom, rgba(12,26,31,0.05) 0%, rgba(12,26,31,0.72) 52%, rgba(12,26,31,0.98) 100%)',
+          }} />
+        )}
+
         {/* Genre badge */}
         {show.genre && (
           <div style={{
-            position: 'absolute', top: '1rem', left: '1rem',
+            position: 'absolute', zIndex: 1, top: '1rem', left: '1rem',
             border: '1px solid var(--gold)', color: 'var(--gold)',
             padding: '0.25rem 0.75rem', borderRadius: 1,
             fontFamily: 'var(--font-bebas)', fontSize: '0.75rem', letterSpacing: '0.18em',
@@ -48,10 +67,10 @@ export default function ShowCard({ show }: { show: Show }) {
           </div>
         )}
 
-        {/* Sold out overlay */}
+        {/* Sold out badge */}
         {soldOut && (
           <div style={{
-            position: 'absolute', top: '1rem', right: '1rem',
+            position: 'absolute', top: '1rem', right: '1rem', zIndex: 1,
             background: 'rgba(200,30,30,0.85)', color: '#fff',
             padding: '0.25rem 0.75rem', borderRadius: 1,
             fontFamily: 'var(--font-bebas)', fontSize: '0.75rem', letterSpacing: '0.15em',
@@ -61,7 +80,7 @@ export default function ShowCard({ show }: { show: Show }) {
         )}
 
         {/* Content */}
-        <div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
           {funcion && (
             <p style={{
               fontFamily: 'var(--font-bebas)', fontSize: '0.8rem', letterSpacing: '0.15em',
