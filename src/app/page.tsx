@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/server'
 import ShowNav from '@/app/[slug]/components/ShowNav'
 import ShowFooter from '@/app/[slug]/components/ShowFooter'
@@ -72,11 +73,20 @@ export default async function HomePage() {
           <div aria-hidden="true" className="hero-panels" style={{ position: 'absolute', inset: 0, display: 'flex' }}>
             {heroShows.length > 0 ? heroShows.map(show => (
               <div key={show.id} className="hero-panel" style={{
-                flex: 1,
-                background: show.image_hero_url
-                  ? `url(${show.image_hero_url}) center/cover no-repeat`
-                  : 'linear-gradient(135deg, #0f2028, #0c1a1f)',
-              }} />
+                flex: 1, position: 'relative',
+                background: show.image_hero_url ? undefined : 'linear-gradient(135deg, #0f2028, #0c1a1f)',
+              }}>
+                {show.image_hero_url && (
+                  <Image
+                    src={show.image_hero_url}
+                    alt=""
+                    fill
+                    priority
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    style={{ objectFit: 'cover' }}
+                  />
+                )}
+              </div>
             )) : (
               <div className="hero-panel" style={{ flex: 1, background: 'linear-gradient(135deg, #0a1a20, #0c1a1f)' }} />
             )}

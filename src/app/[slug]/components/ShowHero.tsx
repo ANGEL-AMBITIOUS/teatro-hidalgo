@@ -1,5 +1,6 @@
 import type { Show, Funcion } from '@/lib/types'
 import Link from 'next/link'
+import Image from 'next/image'
 
 function formatMonth(fecha: string) {
   const months = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC']
@@ -13,11 +14,27 @@ export default function ShowHero({ show, funcion }: { show: Show; funcion?: Func
       position: 'relative', minHeight: '100vh', paddingTop: '64px',
       display: 'flex', flexDirection: 'column', justifyContent: 'center',
       overflow: 'hidden',
-      background: show.image_hero_url
-        ? `linear-gradient(to bottom, rgba(12,26,31,0.35) 0%, rgba(12,26,31,0.55) 50%, rgba(12,26,31,0.95) 100%), url(${show.image_hero_url}) center/cover no-repeat`
-        : 'linear-gradient(135deg, #0c1a1f 0%, #122530 50%, #0c1a1f 100%)',
+      background: show.image_hero_url ? undefined : 'linear-gradient(135deg, #0c1a1f 0%, #122530 50%, #0c1a1f 100%)',
     }}>
-      <div style={{ position: 'relative', zIndex: 1, textAlign: 'center', padding: '4rem 2rem 7rem' }}>
+      {/* LCP image — priority preload, WebP via Vercel CDN */}
+      {show.image_hero_url && (
+        <Image
+          src={show.image_hero_url}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+        />
+      )}
+      {/* Scrim overlay */}
+      {show.image_hero_url && (
+        <div aria-hidden="true" style={{
+          position: 'absolute', inset: 0, zIndex: 1,
+          background: 'linear-gradient(to bottom, rgba(12,26,31,0.35) 0%, rgba(12,26,31,0.55) 50%, rgba(12,26,31,0.95) 100%)',
+        }} />
+      )}
+      <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', padding: '4rem 2rem 7rem' }}>
         {funcion && (
           <div className="hero-badge" style={{
             display: 'inline-block', border: '1px solid var(--gold)',
